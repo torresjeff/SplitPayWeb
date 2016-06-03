@@ -7,12 +7,33 @@
         <title>Facelet Title</title>
     </h:head>
     <h:body>
-        <f:view>
             <h:form>
-                <h:outputText value="#{finalDebtController.groupName}" />
-                <h:commandButton value="He" action="#{finalDebtController.llamarFinalDebt}" />
+                 
+                <table style="width: 700px; text-align: center; margin-left: auto; margin-right: auto; border-style: double" cellpadding="2" cellspacing="2">
+                    <tr>
+                        <td style="text-align: center; vertical-align: top;">
+                            <p><h1><b>SplitPay</b></h1></p>
+                        </td>
+                    </tr>
+                </table>
+                 
+                <br/>
+                <br/>
+                <br/>
             </h:form>
-        </f:view>
+            <center>
+                <h:outputText value="#{finalDebtController.groupName}"/>
+            </center>
+                
+            <h:form>
+                <center>
+                <p><h3><b>Final Debt Resolution</b></h3></p>
+
+                    
+                <h:commandButton value="Realizar la Resolucion Final" action="#{finalDebtController.findGroupUsers()}"/>    
+
+                </center>
+            </h:form>
 
     </h:body>
 </html>
