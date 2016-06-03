@@ -21,20 +21,63 @@
                 <br/>
                 <br/>
             </h:form>
-            <center>
-                <h:outputText value="#{finalDebtController.groupName}"/>
-            </center>
+            
                 
             <h:form>
                 <center>
-                <p><h3><b>Final Debt Resolution</b></h3></p>
+                
+                <f:view>
 
-                    
-                <h:commandButton value="Realizar la Resolucion Final" action="#{finalDebtController.findGroupUsers()}"/>    
+
+                    <h:form>
+                        <h1><h:outputText value="Grupos"/></h1>
+                        <h:dataTable value="#{indexController.grupos}" var="item" binding="#{indexController.dataTable}">
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Id"/>
+                                </f:facet>
+                                <h:outputText value="#{item.id}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Name"/>
+                                </f:facet>
+                                <h:outputText value="#{item.name}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Cerrado"/>
+                                </f:facet>
+                                <h:outputText value="#{item.cerrado}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Pendientecierre"/>
+                                </f:facet>
+                                <h:outputText value="#{item.pendientecierre}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Lider"/>
+                                </f:facet>
+                                <h:outputText value="#{item.lider}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="">
+                                    <h:outputText value="Lider"/>
+                                </f:facet>
+                                <h:commandButton value="Seleccionar" action="#{indexController.sleccionarGrupo()}"/>
+                            </h:column>
+                        </h:dataTable>
+                    </h:form>
+                </f:view>
+
+                
+                
 
                 </center>
             </h:form>
-
+            
     </h:body>
 </html>
 

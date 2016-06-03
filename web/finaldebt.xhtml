@@ -11,9 +11,8 @@
         <br/>
         
         <f:view>
-
-
             <h:form>
+                <f:viewParam name="grupo" value="#{finalDebtController.grupoId}"/>
                 <h1><h:outputText value="Usuarios"/></h1>
                 <h:dataTable value="#{finalDebtController.usuarios}" var="item">
                     <h:column>
@@ -54,6 +53,7 @@
                     </h:column>
                 </h:dataTable>
                 <h:commandButton value="Final Debt Resolution" action="#{finalDebtController.finalDebtResolution()}"/>
+                <h:commandButton value="Atrás" action="index" />
             </h:form>
         </f:view>
 

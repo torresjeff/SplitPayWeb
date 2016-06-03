@@ -7,10 +7,14 @@ package controllers;
 
 import DTO.FinalDebtRequest;
 import DTO.FinalDebtResponse;
+import entities.Grupo;
 import entities.Usuario;
 import java.util.List;
+import java.util.Map;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
 import negocio.FacadeFinalDebtRemote;
 
 /**
@@ -34,22 +38,40 @@ public class FinalDebtController extends BaseController {
     public FinalDebtController() {
         super();
         facadeFinalDebt = (FacadeFinalDebtRemote) lookup("negocio.FacadeFinalDebtRemote");
-    }
-    
-    public String findGroupUsers() {
+        //grupos = facadeFinalDebt.
+        
+        //HttpServletRequest httpRequest =(HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest();
+
+        //grupoId = Integer.parseInt(httpRequest.getParameter("grupo"));
+        
+        /*Map<String, String> params = FacesContext.getCurrentInstance().
+                                        getExternalContext().getRequestParameterMap();
+        grupoId = Integer.parseInt(params.get("grupo"));
+        */
+        
+        //----
         FinalDebtRequest request = new FinalDebtRequest();
         request.groupId = grupoId;
         FinalDebtResponse response = facadeFinalDebt.FinalDebtResolution(request);
         
         if (response.Succeeded()) {
             usuarios = response.usuarios;
-            return "finaldebt";
         }
-        //groupName = facadeFinalDebt.Hello();
-        //this.groupName = "jijji";
         
-        return "";
+        //findGroupUsers();
     }
+    
+    public void findGroupUsers() {
+        FinalDebtRequest request = new FinalDebtRequest();
+        request.groupId = grupoId;
+        FinalDebtResponse response = facadeFinalDebt.FinalDebtResolution(request);
+        
+        if (response.Succeeded()) {
+            usuarios = response.usuarios;
+        }
+    }
+    
+    
     
     public String finalDebtResolution() {
         
