@@ -45,6 +45,10 @@ public class PayPalController extends BaseController implements Serializable {
         LoginPayPalResponse response = facadeMemberToMember.LoginPayPal(request);
         if (response.getOperationError() == null) {
             loggeado = "Ya inicio sesion";
+            //return "pagarpaypal";
+        }
+        else {
+            loggeado = response.getOperationError();
         }
         return "";
     }
