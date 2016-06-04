@@ -34,6 +34,10 @@
                         <h:outputText value="#{item.usuario}"/>
                     </h:column>
                 </h:dataTable>
+                <h:outputText value="#{payPalController.pagado}"/>
+                Cantidad a pagar: <h:inputText value="#{payPalController.cantidadAPagar}"/>
+                <br/>
+                <h:commandButton value="Pagar" action="#{payPalController.pagar()}"/>
             </h:form>
         </f:view>
 

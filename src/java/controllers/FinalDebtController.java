@@ -57,7 +57,7 @@ public class FinalDebtController extends BaseController implements Serializable 
         //----
         
         
-        if (FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap() != null)
+        if (FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().containsKey("grupo"))
             grupoId = Integer.parseInt(FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("grupo"));
         
         /*FinalDebtRequest request = new FinalDebtRequest();

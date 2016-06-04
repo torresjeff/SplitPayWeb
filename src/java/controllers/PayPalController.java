@@ -10,7 +10,10 @@ import DTO.GetDebtResponse;
 import entities.Usuariosxgrupo;
 import integracion.LoginPayPalResponse;
 import integracion.LoginRequest;
+import integracion.PagarRequest;
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.inject.Named;
@@ -32,8 +35,9 @@ public class PayPalController extends BaseController implements Serializable {
     private String cc;
     private String password;
     private String loggeado;
-    
+    private int cantidadAPagar;
     private List<Usuariosxgrupo> usuariosxgrupo;
+    private String pagado = "Por favor realice su pago";
     
     /**
      * Creates a new instance of PayPalController
@@ -73,6 +77,15 @@ public class PayPalController extends BaseController implements Serializable {
         
         return "";
     }
+    
+    public String pagar() {
+        PagarRequest request = new PagarRequest();
+        request.setAmount(BigDecimal.valueOf(cantidadAPagar));
+        
+        
+        
+        return "";
+    }
 
     public String getCc() {
         return cc;
@@ -104,6 +117,14 @@ public class PayPalController extends BaseController implements Serializable {
 
     public void setUsuariosxgrupo(List<Usuariosxgrupo> usuariosxgrupo) {
         this.usuariosxgrupo = usuariosxgrupo;
+    }
+
+    public int getCantidadAPagar() {
+        return cantidadAPagar;
+    }
+
+    public void setCantidadAPagar(int cantidadAPagar) {
+        this.cantidadAPagar = cantidadAPagar;
     }
 
     

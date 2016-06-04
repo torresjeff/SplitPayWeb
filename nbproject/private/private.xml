@@ -3,10 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Sid/Documents/NetBeansProjects/SplitPayWeb/web/paypal.xhtml</file>
-            <file>file:/C:/Users/Sid/Documents/NetBeansProjects/SplitPayWeb/web/index.xhtml</file>
+            <file>file:/C:/Users/Sid/Documents/NetBeansProjects/SplitPayWeb/src/java/controllers/LoginController.java</file>
+            <file>file:/C:/Users/Sid/Documents/NetBeansProjects/SplitPayWeb/src/java/controllers/FinalDebtController.java</file>
             <file>file:/C:/Users/Sid/Documents/NetBeansProjects/SplitPayWeb/web/pagarpaypal.xhtml</file>
-            <file>file:/C:/Users/Sid/Documents/NetBeansProjects/SplitPayWeb/src/java/controllers/PayPalController.java</file>
+            <file>file:/C:/Users/Sid/Documents/NetBeansProjects/SplitPayWeb/src/java/controllers/IndexController.java</file>
         </group>
     </open-files>
 </project-private>
