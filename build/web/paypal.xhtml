@@ -12,9 +12,13 @@
         <f:view>
             <h:form>
                 <h:outputText value="#{payPalController.loggeado}"/>
-                <h:inputText value="#{payPalController.cc}"/>
-                <h:inputSecret value="#{payPalController.password}"/>
-                <h:commandButton  action="#{payPalController.login()}"/>
+                <br/>
+                CC: <h:inputText value="#{payPalController.cc}"/>
+                <br/>
+                Contraseña: <h:inputSecret value="#{payPalController.password}"/>
+                <br/>
+                <br/>
+                <h:commandButton  value="Iniciar sesión" action="#{payPalController.login()}"/>
             </h:form>
         </f:view>
 

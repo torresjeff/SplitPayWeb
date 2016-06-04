@@ -5,9 +5,13 @@
  */
 package controllers;
 
+import DTO.GetDebtRequest;
+import DTO.GetDebtResponse;
+import entities.Usuariosxgrupo;
 import integracion.LoginPayPalResponse;
 import integracion.LoginRequest;
 import java.io.Serializable;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.Dependent;
@@ -28,6 +32,9 @@ public class PayPalController extends BaseController implements Serializable {
     private String cc;
     private String password;
     private String loggeado;
+    
+    private List<Usuariosxgrupo> usuariosxgrupo;
+    
     /**
      * Creates a new instance of PayPalController
      */
@@ -35,6 +42,17 @@ public class PayPalController extends BaseController implements Serializable {
         super();
         facadeMemberToMember = (FacadeMemberToMemberRemote) lookup("negocio.FacadeMemberToMemberRemote");
         loggeado = "Por favor inicie sesion";
+        
+    }
+    
+    private void getDebts() {
+        GetDebtRequest request = new GetDebtRequest();
+        request.cc = "jeff";
+        GetDebtResponse response = facadeMemberToMember.GetDebts(request);
+        
+        if (response.operationError == null) {
+            usuariosxgrupo = response.usuariosxgrupo;
+        }
     }
     
     public String login() {
@@ -44,12 +62,15 @@ public class PayPalController extends BaseController implements Serializable {
         
         LoginPayPalResponse response = facadeMemberToMember.LoginPayPal(request);
         if (response.getOperationError() == null) {
-            loggeado = "Ya inicio sesion";
-            //return "pagarpaypal";
+            loggeado = "Login aceptado";
+            getDebts();
+            return "pagarpaypal";
         }
         else {
             loggeado = response.getOperationError();
         }
+        
+        
         return "";
     }
 
@@ -76,6 +97,16 @@ public class PayPalController extends BaseController implements Serializable {
     public void setLoggeado(String loggeado) {
         this.loggeado = loggeado;
     }
+
+    public List<Usuariosxgrupo> getUsuariosxgrupo() {
+        return usuariosxgrupo;
+    }
+
+    public void setUsuariosxgrupo(List<Usuariosxgrupo> usuariosxgrupo) {
+        this.usuariosxgrupo = usuariosxgrupo;
+    }
+
+    
     
     
     
