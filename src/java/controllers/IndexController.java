@@ -7,11 +7,17 @@ package controllers;
 
 import DTO.GetGroupsRequest;
 import entities.Grupo;
+import java.io.IOException;
+import java.io.Serializable;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.component.html.HtmlDataTable;
+import javax.faces.context.FacesContext;
 import negocio.FacadeIndexRemote;
 
 /**
@@ -19,14 +25,13 @@ import negocio.FacadeIndexRemote;
  * @author Sid
  */
 @Named(value = "indexController")
-@RequestScoped
-public class IndexController extends BaseController {
+@SessionScoped
+public class IndexController extends BaseController implements Serializable {
 
     //@EJB
     private FacadeIndexRemote facadeIndex;
     private List<Grupo> grupos;
     private int groupId;
-    private HtmlDataTable dataTable;
     private Grupo grupoSeleccionado;
     
     /**
@@ -45,8 +50,10 @@ public class IndexController extends BaseController {
         /*GetGroupsRequest request = new GetGroupsRequest();
         request.userId = 2;
         grupos = facadeIndex.GetGroups(request).grupos;*/
-        grupoSeleccionado = (Grupo)dataTable.getRowData();
-        return "finaldebt?grupo="+grupoSeleccionado.getId().intValue();
+        //grupoSeleccionado = (Grupo)dataTable.getRowData();
+        groupId = grupoSeleccionado.getId().intValue();
+        
+        return "finaldebt";
         
    }
 
@@ -64,14 +71,6 @@ public class IndexController extends BaseController {
 
     public void setGroupId(int groupId) {
         this.groupId = groupId;
-    }
-
-    public HtmlDataTable getDataTable() {
-        return dataTable;
-    }
-
-    public void setDataTable(HtmlDataTable dataTable) {
-        this.dataTable = dataTable;
     }
 
     public Grupo getGrupoSeleccionado() {

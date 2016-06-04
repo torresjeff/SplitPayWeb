@@ -7,12 +7,17 @@ package controllers;
 
 import DTO.FinalDebtRequest;
 import DTO.FinalDebtResponse;
+import DTO.GetGroupUsersRequest;
+import DTO.GetGroupUsersResponse;
 import entities.Grupo;
 import entities.Usuario;
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import negocio.FacadeFinalDebtRemote;
@@ -22,8 +27,8 @@ import negocio.FacadeFinalDebtRemote;
  * @author Sid
  */
 @Named(value = "finalDebtController")
-@RequestScoped
-public class FinalDebtController extends BaseController {
+@SessionScoped
+public class FinalDebtController extends BaseController implements Serializable {
 
     private String groupName = "group";
     private int grupoId;
@@ -41,7 +46,7 @@ public class FinalDebtController extends BaseController {
         //grupos = facadeFinalDebt.
         
         //HttpServletRequest httpRequest =(HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest();
-
+        //grupoId = Integer.parseInt((String)FacesContext.getCurrentInstance().getExternalContext().getRequestMap().get("grupo"));
         //grupoId = Integer.parseInt(httpRequest.getParameter("grupo"));
         
         /*Map<String, String> params = FacesContext.getCurrentInstance().
@@ -50,21 +55,26 @@ public class FinalDebtController extends BaseController {
         */
         
         //----
-        FinalDebtRequest request = new FinalDebtRequest();
+        
+        
+        if (FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap() != null)
+            grupoId = Integer.parseInt(FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("grupo"));
+        
+        /*FinalDebtRequest request = new FinalDebtRequest();
         request.groupId = grupoId;
         FinalDebtResponse response = facadeFinalDebt.FinalDebtResolution(request);
         
         if (response.Succeeded()) {
             usuarios = response.usuarios;
-        }
+        }*/
         
-        //findGroupUsers();
+        findGroupUsers();
     }
     
     public void findGroupUsers() {
-        FinalDebtRequest request = new FinalDebtRequest();
+        GetGroupUsersRequest request = new GetGroupUsersRequest();
         request.groupId = grupoId;
-        FinalDebtResponse response = facadeFinalDebt.FinalDebtResolution(request);
+        GetGroupUsersResponse response = facadeFinalDebt.GetGroupUsers(request);
         
         if (response.Succeeded()) {
             usuarios = response.usuarios;
@@ -74,8 +84,10 @@ public class FinalDebtController extends BaseController {
     
     
     public String finalDebtResolution() {
-        
-        return "index";
+        FinalDebtRequest request = new FinalDebtRequest();
+        request.groupId = grupoId;
+        facadeFinalDebt.FinalDebtResolution(request);
+        return "confirmfinaldebt";
     }
 
     public String getGroupName() {
@@ -87,6 +99,8 @@ public class FinalDebtController extends BaseController {
     }
 
     public int getGrupoId() {
+        //return grupoId;
+        grupoId = Integer.parseInt(FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("grupo"));
         return grupoId;
     }
 
