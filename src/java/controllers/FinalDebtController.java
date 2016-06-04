@@ -33,7 +33,7 @@ public class FinalDebtController extends BaseController implements Serializable 
     private String groupName = "group";
     private int grupoId;
     private List<Usuario> usuarios;
-    
+    private int totalDebt;
     //@EJB
     private FacadeFinalDebtRemote facadeFinalDebt;
 
@@ -86,8 +86,10 @@ public class FinalDebtController extends BaseController implements Serializable 
     public String finalDebtResolution() {
         FinalDebtRequest request = new FinalDebtRequest();
         request.groupId = grupoId;
-        facadeFinalDebt.FinalDebtResolution(request);
-        return "confirmfinaldebt";
+        FinalDebtResponse response = facadeFinalDebt.FinalDebtResolution(request);
+        totalDebt = response.totalDebt;
+        //return "confirmfinaldebt";
+        return "finaldebt?grupo="+grupoId;
     }
 
     public String getGroupName() {
@@ -100,7 +102,8 @@ public class FinalDebtController extends BaseController implements Serializable 
 
     public int getGrupoId() {
         //return grupoId;
-        grupoId = Integer.parseInt(FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("grupo"));
+        if (FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().containsKey("grupo"))
+            grupoId = Integer.parseInt(FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("grupo"));
         return grupoId;
     }
 
@@ -115,6 +118,15 @@ public class FinalDebtController extends BaseController implements Serializable 
     public void setUsuarios(List<Usuario> usuarios) {
         this.usuarios = usuarios;
     }
+
+    public int getTotalDebt() {
+        return totalDebt;
+    }
+
+    public void setTotalDebt(int totalDebt) {
+        this.totalDebt = totalDebt;
+    }
+    
     
     
     
